@@ -52,7 +52,7 @@ That already required a translation layer. But a raw STT result is often not the
 - minimal rewriting;
 - no second manual editing pass.
 
-So the proxy needed a second stage: optional cleanup through OpenRouter chat completions, while still keeping the external interface stable for OpenWhispr.
+So the proxy needed a second stage: optional cleanup after transcription, while still keeping the external interface stable for OpenWhispr.
 
 ## What I Tried
 
@@ -78,10 +78,15 @@ That solved the compatibility layer, but I did not stop there.
 
 The second pass added optional transcript cleanup with:
 
-- cleanup model: `deepseek/deepseek-v4-flash`;
+- cleanup model: `deepseek-v4-flash` directly on DeepSeek API, or `deepseek/deepseek-v4-flash` through OpenRouter;
 - low temperature;
 - configurable failure policy;
 - a conservative `punctuation` mode for grammar and punctuation fixes with minimal paraphrasing.
+
+The current setup uses:
+
+- OpenRouter for STT;
+- DeepSeek API directly for grammar cleanup.
 
 The proxy now supports:
 
@@ -117,6 +122,7 @@ The useful part is not technical novelty. It is that the whole thing now behaves
 
 - OpenWhispr still talks to `/v1/audio/transcriptions`;
 - OpenRouter STT stays behind the adapter;
+- cleanup can use either OpenRouter or DeepSeek directly;
 - cleanup is controlled through environment flags;
 - failures can fall back to the raw transcript instead of breaking the whole dictation flow;
 - secrets stay out of Git.
@@ -145,6 +151,6 @@ If the current behavior holds up, I would rather keep it small than turn it into
 
 - OpenWhispr in front;
 - OpenRouter STT behind;
-- optional cleanup after transcription;
+- optional cleanup after transcription, now with direct DeepSeek support for the editor pass;
 - quiet Windows background startup;
 - no unnecessary infrastructure.
