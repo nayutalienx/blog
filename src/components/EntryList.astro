@@ -6,26 +6,36 @@ interface Props {
 	entries: Entry[];
 	emptyText?: string;
 	showCollection?: boolean;
+	showDescription?: boolean;
+	showTags?: boolean;
 }
 
-const { entries, emptyText = 'Nothing published yet.', showCollection = false } = Astro.props;
+const {
+	entries,
+	emptyText = 'Nothing published yet.',
+	showCollection = false,
+	showDescription = false,
+	showTags = false,
+} = Astro.props;
 ---
 
 {
 	entries.length > 0 ? (
-		<ul class="entry-list">
+		<ul class="post-list">
 			{entries.map((entry) => (
-				<li class="entry-item">
-					<a class="entry-title" href={entryUrl(entry)}>
-						{entry.data.title}
-					</a>
-					<p class="entry-meta">
+				<li>
+					<p class="post-meta">
 						{showCollection && <span>{entryKind(entry)} - </span>}
 						<FormattedDate date={entry.data.pubDate} />
 						{entry.collection === 'notes' && entry.data.status && <span> - {entry.data.status}</span>}
 					</p>
-					<p>{entry.data.description}</p>
-					{entry.data.tags.length > 0 && (
+					<h3>
+						<a class="post-link" href={entryUrl(entry)}>
+							{entry.data.title}
+						</a>
+					</h3>
+					{showDescription && <p>{entry.data.description}</p>}
+					{showTags && entry.data.tags.length > 0 && (
 						<ul class="tag-list" aria-label="Tags">
 							{entry.data.tags.map((tag) => (
 								<li>
@@ -38,6 +48,6 @@ const { entries, emptyText = 'Nothing published yet.', showCollection = false } 
 			))}
 		</ul>
 	) : (
-		<p class="muted">{emptyText}</p>
+		<p>{emptyText}</p>
 	)
 }

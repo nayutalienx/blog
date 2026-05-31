@@ -38,8 +38,10 @@ const {
 	</head>
 	<body>
 		<Header />
-		<main>
-			<slot />
+		<main class="page-content" aria-label="Content">
+			<div class="wrapper">
+				<slot />
+			</div>
 		</main>
 		<Footer />
 	</body>

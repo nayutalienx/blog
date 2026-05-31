@@ -47,14 +47,13 @@ const translationLabel = language === 'ru' ? 'Доступно также:' : 'A
 	updatedDate={updatedDate}
 	tags={tags}
 >
-	<article class="content-entry">
-		<header class="entry-header">
-			<p class="eyebrow">{kind}{status ? ` - ${status}` : ''}</p>
-			<h1>{title}</h1>
-			<p class="lead">{description}</p>
-			<p class="entry-meta">
-				Published <FormattedDate date={pubDate} />
-				{updatedDate && <span> - Updated <FormattedDate date={updatedDate} /></span>}
+	<article class="post">
+		<header class="post-header">
+			<h1 class="post-title">{title}</h1>
+			<p class="post-meta">
+				<FormattedDate date={pubDate} />
+				{updatedDate && <span> • Updated <FormattedDate date={updatedDate} /></span>}
+				{kind === 'Note' && status && <span> • {status}</span>}
 			</p>
 			{translations.length > 0 && (
 				<nav class="language-switcher" aria-label="Translations">
@@ -76,7 +75,7 @@ const translationLabel = language === 'ru' ? 'Доступно также:' : 'A
 				</ul>
 			)}
 		</header>
-		<div class="prose">
+		<div class="post-content e-content">
 			<slot />
 		</div>
 	</article>

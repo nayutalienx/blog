@@ -1,11 +1,29 @@
 ---
-import { REPO_URL, SITE_TITLE } from '../consts';
-import { withBase } from '../lib/content';
-
-const today = new Date();
+import { REPO_URL, SITE_DESCRIPTION, SITE_EMAIL, SITE_TITLE, SITE_X_LABEL, SITE_X_URL } from '../consts';
 ---
 
 <footer class="site-footer">
-	<p>&copy; {today.getFullYear()} {SITE_TITLE}.</p>
-	<p><a href={REPO_URL} target="_blank" rel="noreferrer">Repository</a> - <a href={withBase('rss.xml')}>RSS</a></p>
+	<div class="wrapper">
+		<h2 class="footer-heading">{SITE_TITLE}</h2>
+
+		<div class="footer-col-wrapper">
+			<div class="footer-col footer-col-1">
+				<ul class="contact-list">
+					<li>{SITE_TITLE}</li>
+					<li><a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-col footer-col-2">
+				<ul class="social-media-list">
+					<li><a href={REPO_URL} target="_blank" rel="noreferrer">GitHub</a></li>
+					<li><a href={SITE_X_URL} target="_blank" rel="noreferrer">{SITE_X_LABEL}</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-col footer-col-3">
+				<p>{SITE_DESCRIPTION}</p>
+			</div>
+		</div>
+	</div>
 </footer>

@@ -1,19 +1,26 @@
 ---
-import { REPO_URL, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
 import { withBase } from '../lib/content';
-import HeaderLink from './HeaderLink.astro';
 ---
 
 <header class="site-header">
-	<nav class="site-nav">
+	<div class="wrapper">
 		<a class="site-title" href={withBase('/')}>{SITE_TITLE}</a>
-		<div class="nav-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog/">Blog</HeaderLink>
-			<HeaderLink href="/notes/">Notes</HeaderLink>
-			<HeaderLink href="/tags/">Tags</HeaderLink>
-			<HeaderLink href="/about/">About</HeaderLink>
-		</div>
-		<a class="repo-link" href={REPO_URL} target="_blank" rel="noreferrer">GitHub</a>
-	</nav>
+		<nav class="site-nav" aria-label="Main navigation">
+			<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+			<label for="nav-trigger">
+				<span class="menu-icon">
+					<svg viewBox="0 0 18 15" width="18" height="15" aria-hidden="true">
+						<path
+							d="M18 1.484C18 2.304 17.335 2.969 16.516 2.969H1.484C0.665 2.969 0 2.304 0 1.484S0.665 0 1.484 0h15.032C17.335 0 18 0.665 18 1.484ZM18 7.516C18 8.335 17.335 9 16.516 9H1.484C0.665 9 0 8.335 0 7.516s0.665-1.484 1.484-1.484h15.032C17.335 6.032 18 6.696 18 7.516ZM18 13.516C18 14.335 17.335 15 16.516 15H1.484C0.665 15 0 14.335 0 13.516s0.665-1.483 1.484-1.483h15.032C17.335 12.033 18 12.696 18 13.516Z"
+						/>
+					</svg>
+				</span>
+				<span class="sr-only">Toggle navigation</span>
+			</label>
+			<div class="trigger">
+				<a class="page-link" href={withBase('about/')}>About</a>
+			</div>
+		</nav>
+	</div>
 </header>

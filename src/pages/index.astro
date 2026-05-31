@@ -3,32 +3,17 @@ import { getCollection } from 'astro:content';
 import EntryList from '../components/EntryList.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { byPubDateDesc, canonicalEntries, isPublished, withBase } from '../lib/content';
+import { canonicalEntries, isPublished, withBase } from '../lib/content';
 
-const posts = canonicalEntries((await getCollection('blog')).filter(isPublished)).slice(0, 3);
-const notes = (await getCollection('notes')).filter(isPublished).sort(byPubDateDesc).slice(0, 5);
+const posts = canonicalEntries((await getCollection('blog')).filter(isPublished));
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	<section class="hero">
-		<p class="eyebrow">Public lab notebook</p>
-		<h1>{SITE_TITLE}</h1>
-		<p class="lead">{SITE_DESCRIPTION}</p>
-	</section>
-
-	<section class="section">
-		<div class="section-heading">
-			<h2>Recent Posts</h2>
-			<a href={withBase('blog/')}>All posts</a>
-		</div>
-		<EntryList entries={posts} />
-	</section>
-
-	<section class="section">
-		<div class="section-heading">
-			<h2>Recent Notes</h2>
-			<a href={withBase('notes/')}>All notes</a>
-		</div>
-		<EntryList entries={notes} />
-	</section>
+	<div class="home">
+		<h2 class="post-list-heading">Posts</h2>
+		<EntryList entries={posts} emptyText="No blog posts published yet." />
+		<p class="rss-subscribe">
+			subscribe <a href={withBase('rss.xml')}>via RSS</a>
+		</p>
+	</div>
 </BaseLayout>
