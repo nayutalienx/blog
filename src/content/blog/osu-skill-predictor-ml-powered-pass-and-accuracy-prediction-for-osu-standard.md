@@ -72,16 +72,14 @@ A single-page web UI (HTML/JS served by FastAPI) handles settings, status displa
 
 The project is in **feature-complete MVP state**, tagged as `v0.1.0`. It does exactly what I set out to do and ships as a working standalone app. I am treating it as a done portfolio piece.
 
-Architecture:
+Architecture, end to end:
 
-```
-osu! client -> tosu (memory reader) -> LiveService (FastAPI) -> PredictionService
-                                          |                        |
-                                     Web UI (settings)      Canonical Models
-                                          |                  (joblib artifacts)
-                                     Tkinter overlay
-                                    (pass% + acc% on screen)
-```
+- `osu! client` runs the game and exposes live state to [tosu](https://github.com/tosuapp/tosu), an open-source memory reader.
+- `ui/live.py` (`LiveService`) polls tosu over local HTTP, enriches missing fields from the osu! API v2 with short TTL caches, and assembles the feature vector.
+- `app/predict.py` (`PredictionService`) loads the canonical `models/*.joblib` artifacts at startup and runs the inference.
+- `ui/overlay.py` renders a tkinter always-on-top window with the current pass% and accuracy%.
+- `ui/static/index.html` is a single-page web UI for settings, live status, and shutdown.
+- `scripts/build_web_bundle.py` packages the runtime, models, and tosu.exe into a single `osu-skill-predictor-web.exe` via PyInstaller.
 
 ## Open Questions
 
