@@ -4,6 +4,6 @@ export const SITE_TITLE = 'kotoamatsukami';
 export const SITE_DESCRIPTION = 'Engineering notes, experiments, and unfinished thoughts.';
 export const SITE_EMAIL = 'nayutalienx@gmail.com';
 export const SITE_X_URL = 'https://x.com/nayutalienx';
-export const SITE_X_LABEL = 'mugiwara_byte';
+export const SITE_X_LABEL = 'nayutalienx';
 export const REPO_URL = `https://github.com/${OWNER}/${REPO_NAME}`;
 export const PAGES_URL = `https://${OWNER}.github.io/${REPO_NAME}/`;
